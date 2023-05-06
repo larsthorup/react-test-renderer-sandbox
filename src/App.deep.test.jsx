@@ -1,6 +1,7 @@
 import TestRenderer from "react-test-renderer";
 import { describe, expect, it } from "vitest";
 import App from "./App.jsx";
+import Count from "./Count.jsx";
 
 describe(App.name, () => {
   it("should deep render", () => {
@@ -42,15 +43,12 @@ describe(App.name, () => {
 
   it("should let user change color", () => {
     const { root } = TestRenderer.create(<App />);
-    const [, div] = root.children;
-    const [label] = div.props.children;
-    const [, input] = label.props.children;
-    expect(div.props.children[1].props.color).toBe("black");
+    expect(root.findByType(Count).props.color).toBe("black");
 
     // when: change color
-    input.props.onChange({ target: { value: "red" } });
+    root.findByType("input").props.onChange({ target: { value: "red" } });
 
     // then: component re-renders with new color
-    expect(div.props.children[1].props.color).toBe("red");
+    expect(root.findByType(Count).props.color).toBe("red");
   });
 });

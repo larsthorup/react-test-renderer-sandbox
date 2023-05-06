@@ -45,20 +45,17 @@ describe(App.name, () => {
   it("should let user change color", () => {
     const renderer = new ShallowRenderer();
     renderer.render(<App />);
-    const root = renderer.getRenderOutput();
+    let root = renderer.getRenderOutput();
     const [, div] = root.props.children;
     const [label] = div.props.children;
     const [, input] = label.props.children;
-    expect(
-      renderer.getRenderOutput().props.children[1].props.children[1].props.color
-    ).toBe("black");
+    expect(root.props.children[1].props.children[1].props.color).toBe("black");
 
     // when: change color
     input.props.onChange({ target: { value: "red" } });
 
     // then: component re-renders with new color
-    expect(
-      renderer.getRenderOutput().props.children[1].props.children[1].props.color
-    ).toBe("red");
+    root = renderer.getRenderOutput();
+    expect(root.props.children[1].props.children[1].props.color).toBe("red");
   });
 });

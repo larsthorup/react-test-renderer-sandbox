@@ -11,6 +11,7 @@ npm test
 - [x] nested components
 - [x] shallow rendering
 - [x] props
-- [ ] selector helpers
+- [x] deep find helpers
 - [ ] useEffect
+- [ ] shallow find helpers
 - [ ] compare speed to RTL
