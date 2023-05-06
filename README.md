@@ -15,5 +15,5 @@ npm run dev
 - [x] deep find helpers
 - [x] shallow find helpers
 - [x] useEffect
+- [x] compare speed to RTL: <0.2ms (300ms in Jest/jsdom, 40ms in Mocha/Firefox)
 - [ ] async / timers, mock time, wait (fetch)
-- [ ] compare speed to RTL
