@@ -7,12 +7,13 @@ describe(Count.name, () => {
     const testRenderer = TestRenderer.create(<Count />);
     const html = testRenderer.toJSON();
     expect(html).toMatchInlineSnapshot(`
-<button
-  onClick={[Function]}
->
-  count is 
-  0
-</button>`);
+      <button
+        onClick={[Function]}
+      >
+        count is 
+        0
+      </button>
+    `);
     const { root } = testRenderer;
     expect(root.type).toBe(Count);
     expect(root.props).toEqual({});

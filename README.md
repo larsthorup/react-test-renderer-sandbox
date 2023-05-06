@@ -9,6 +9,7 @@ npm test
 - [x] useState
 - [x] click
 - [x] nested components
-- [ ] shallow rendering
+- [x] shallow rendering
+- [ ] props
 - [ ] useEffect
 - [ ] compare speed to RTL
