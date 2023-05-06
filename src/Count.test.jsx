@@ -2,7 +2,7 @@ import TestRenderer from "react-test-renderer";
 import { describe, expect, it } from "vitest";
 import Count from "./Count.jsx";
 
-describe("Count", () => {
+describe(Count.name, () => {
   it("should render", () => {
     const testRenderer = TestRenderer.create(<Count />);
     const html = testRenderer.toJSON();
