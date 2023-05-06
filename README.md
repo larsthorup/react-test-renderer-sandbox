@@ -12,6 +12,7 @@ npm test
 - [x] shallow rendering
 - [x] props
 - [x] deep find helpers
+- [x] shallow find helpers
 - [ ] useEffect
-- [ ] shallow find helpers
+- [ ] async / timers (fetch)
 - [ ] compare speed to RTL

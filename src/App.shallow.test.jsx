@@ -3,6 +3,7 @@ import ShallowRenderer from "react-test-renderer/shallow";
 import { describe, expect, it } from "vitest";
 import App from "./App.jsx";
 import Count from "./Count.jsx";
+import { byType } from "./shallowSearch.js";
 
 describe(App.name, () => {
   it("should shallow render", () => {
@@ -46,16 +47,13 @@ describe(App.name, () => {
     const renderer = new ShallowRenderer();
     renderer.render(<App />);
     let root = renderer.getRenderOutput();
-    const [, div] = root.props.children;
-    const [label] = div.props.children;
-    const [, input] = label.props.children;
-    expect(root.props.children[1].props.children[1].props.color).toBe("black");
+    expect(byType(Count, root).props.color).toBe("black");
 
     // when: change color
-    input.props.onChange({ target: { value: "red" } });
+    byType("input", root).props.onChange({ target: { value: "red" } });
 
     // then: component re-renders with new color
     root = renderer.getRenderOutput();
-    expect(root.props.children[1].props.children[1].props.color).toBe("red");
+    expect(byType(Count, root).props.color).toBe("red");
   });
 });
