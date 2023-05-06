@@ -6,7 +6,7 @@ function App() {
     <>
       <h1>React Test Renderer sandbox</h1>
       <div className="card">
-        <Count />
+        <Count color="black" />
       </div>
     </>
   );

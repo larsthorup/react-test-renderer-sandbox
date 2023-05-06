@@ -20,8 +20,16 @@ describe(App.name, () => {
           <button
             onClick={[Function]}
           >
-            count is 
-            0
+            <span
+              style={
+                {
+                  "color": "black",
+                }
+              }
+            >
+              count is 
+              0
+            </span>
           </button>
         </div>,
       ]
@@ -40,7 +48,9 @@ describe(App.name, () => {
         <div
           className="card"
         >
-          <Count />
+          <Count
+            color="black"
+          />
         </div>
       </React.Fragment>
     `);
