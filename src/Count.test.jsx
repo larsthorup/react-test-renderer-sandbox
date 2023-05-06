@@ -1,4 +1,4 @@
-import TestRenderer from "react-test-renderer";
+import TestRenderer, { act } from "react-test-renderer";
 import { describe, expect, it } from "vitest";
 import Count from "./Count.jsx";
 
@@ -35,7 +35,12 @@ describe(Count.name, () => {
   });
 
   it("should let user click to increment count", () => {
-    const { root } = TestRenderer.create(<Count color="black" />);
+    let renderer;
+    act(() => {
+      // note: use "act" to wait for effect to run before clicking
+      renderer = TestRenderer.create(<Count color="black" />);
+    });
+    const { root } = renderer;
     const [button] = root.children;
 
     // when: click button

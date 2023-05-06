@@ -3,6 +3,7 @@
 ```bash
 npm install
 npm test
+npm run dev
 ```
 
 - [x] render
@@ -13,6 +14,6 @@ npm test
 - [x] props
 - [x] deep find helpers
 - [x] shallow find helpers
-- [ ] useEffect
-- [ ] async / timers (fetch)
+- [x] useEffect
+- [ ] async / timers, mock time, wait (fetch)
 - [ ] compare speed to RTL
