@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./App.css";
 import Count from "./Count.jsx";
 
@@ -7,6 +7,11 @@ function App() {
   const onColorChange = (e) => {
     setColor(e.target.value);
   };
+  useEffect(() => {
+    setTimeout(() => {
+      setColor("green");
+    }, 1000);
+  }, []);
   return (
     <>
       <h1>React Test Renderer sandbox</h1>

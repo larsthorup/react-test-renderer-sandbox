@@ -1,5 +1,5 @@
-import TestRenderer from "react-test-renderer";
-import { describe, expect, it } from "vitest";
+import TestRenderer, { act } from "react-test-renderer";
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import App from "./App.jsx";
 import Count from "./Count.jsx";
 
@@ -39,6 +39,31 @@ describe(App.name, () => {
         </div>,
       ]
     `);
+  });
+
+  describe("with mocked timers", () => {
+    beforeEach(() => {
+      vi.useFakeTimers();
+    });
+
+    afterEach(() => {
+      vi.useRealTimers();
+    });
+
+    it("should wait for personalized color to load", () => {
+      let renderer;
+      act(() => {
+        renderer = TestRenderer.create(<App />);
+        // when: waiting for useEffect to run
+      });
+      const { root } = renderer;
+      expect(root.findByType(Count).props.color).toBe("black");
+
+      // when: waiting for setTimeout to run
+      vi.advanceTimersToNextTimer();
+
+      expect(root.findByType(Count).props.color).toBe("green");
+    });
   });
 
   for (let i = 0; i < 10000; ++i)

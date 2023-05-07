@@ -1,6 +1,6 @@
 import React from "react";
 import ShallowRenderer from "react-test-renderer/shallow";
-import { describe, expect, it } from "vitest";
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import App from "./App.jsx";
 import Count from "./Count.jsx";
 import { byType } from "./shallowSearch.js";
@@ -41,6 +41,31 @@ describe(App.name, () => {
     expect(root.props.children[1].props).toHaveProperty("className", "card");
     expect(root.props.children[1].props.children).toHaveLength(2);
     expect(root.props.children[1].props.children[1].type).toBe(Count);
+  });
+
+  describe("with mocked timers", () => {
+    beforeEach(() => {
+      vi.useFakeTimers();
+    });
+
+    afterEach(() => {
+      vi.useRealTimers();
+    });
+
+    it("should wait for personalized color to load", () => {
+      let renderer, root;
+      renderer = new ShallowRenderer();
+      renderer.render(<App />);
+
+      root = renderer.getRenderOutput();
+      expect(byType(Count, root).props.color).toBe("black");
+
+      // when: waiting for setTimeout to run
+      vi.advanceTimersToNextTimer();
+
+      root = renderer.getRenderOutput();
+      expect(byType(Count, root).props.color).toBe("black");
+    });
   });
 
   for (let i = 0; i < 10000; ++i)
