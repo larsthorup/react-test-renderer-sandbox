@@ -43,17 +43,18 @@ describe(App.name, () => {
     expect(root.props.children[1].props.children[1].type).toBe(Count);
   });
 
-  it("should let user change color", () => {
-    const renderer = new ShallowRenderer();
-    renderer.render(<App />);
-    let root = renderer.getRenderOutput();
-    expect(byType(Count, root).props.color).toBe("black");
+  for (let i = 0; i < 10000; ++i)
+    it("should let user change color", () => {
+      const renderer = new ShallowRenderer();
+      renderer.render(<App />);
+      let root = renderer.getRenderOutput();
+      expect(byType(Count, root).props.color).toBe("black");
 
-    // when: change color
-    byType("input", root).props.onChange({ target: { value: "red" } });
+      // when: change color
+      byType("input", root).props.onChange({ target: { value: "red" } });
 
-    // then: component re-renders with new color
-    root = renderer.getRenderOutput();
-    expect(byType(Count, root).props.color).toBe("red");
-  });
+      // then: component re-renders with new color
+      root = renderer.getRenderOutput();
+      expect(byType(Count, root).props.color).toBe("red");
+    });
 });

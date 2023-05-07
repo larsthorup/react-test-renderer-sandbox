@@ -34,20 +34,19 @@ describe(Count.name, () => {
     expect(span.children).toEqual(["count is ", "0"]);
   });
 
-  for (let i = 0; i < 10000; ++i)
-    it("should let user click to increment count", () => {
-      let renderer;
-      act(() => {
-        // note: use "act" to wait for effect to run before clicking
-        renderer = TestRenderer.create(<Count color="black" />);
-      });
-      const { root } = renderer;
-      const [button] = root.children;
-
-      // when: click button
-      button.props.onClick();
-
-      // then: component re-renders with incremented count
-      expect(button.children[0].children).toEqual(["count is ", "1"]);
+  it("should let user click to increment count", () => {
+    let renderer;
+    act(() => {
+      // note: use "act" to wait for effect to run before clicking
+      renderer = TestRenderer.create(<Count color="black" />);
     });
+    const { root } = renderer;
+    const [button] = root.children;
+
+    // when: click button
+    button.props.onClick();
+
+    // then: component re-renders with incremented count
+    expect(button.children[0].children).toEqual(["count is ", "1"]);
+  });
 });

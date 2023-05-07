@@ -41,14 +41,15 @@ describe(App.name, () => {
     `);
   });
 
-  it("should let user change color", () => {
-    const { root } = TestRenderer.create(<App />);
-    expect(root.findByType(Count).props.color).toBe("black");
+  for (let i = 0; i < 10000; ++i)
+    it("should let user change color", () => {
+      const { root } = TestRenderer.create(<App />);
+      expect(root.findByType(Count).props.color).toBe("black");
 
-    // when: change color
-    root.findByType("input").props.onChange({ target: { value: "red" } });
+      // when: change color
+      root.findByType("input").props.onChange({ target: { value: "red" } });
 
-    // then: component re-renders with new color
-    expect(root.findByType(Count).props.color).toBe("red");
-  });
+      // then: component re-renders with new color
+      expect(root.findByType(Count).props.color).toBe("red");
+    });
 });
