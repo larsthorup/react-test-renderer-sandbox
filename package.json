@@ -8,9 +8,14 @@
     "build": "vite build",
     "lint": "eslint src --ext js,jsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
-    "test": "npm run lint && vitest --run --reporter basic"
+    "test": "npm run lint && npm run test:react-test-renderer && npm run test:testing-library",
+    "test:react-test-renderer": "vitest --run --reporter basic App.deep App.shallow Count",
+    "test:testing-library": "vitest --run --reporter basic --environment jsdom App.dom"
   },
   "dependencies": {
+    "@testing-library/react": "^14.0.0",
+    "@testing-library/user-event": "^14.4.3",
+    "jsdom": "^22.0.0",
     "prop-types": "^15.8.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",

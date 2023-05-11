@@ -1,5 +1,7 @@
 # react-test-renderer-sandbox
 
+Demonstrates that DOM-based tests are ~1000 times slower than React Element-based tests
+
 ```bash
 npm install
 npm test
