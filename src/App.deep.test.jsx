@@ -45,7 +45,7 @@ describe(App.name, () => {
     expect(root.findByProps({ color: "black" }).type).toBe(Count);
 
     // get by text
-    root.find((el) => el.children.includes("count is 0"));
+    root.findByProps({children: "count is 0"});
 
     // get by predicate
     root.find((el) => el.type === "span" && el.props.style.color === "black" && el.children.includes("count is 0"));
