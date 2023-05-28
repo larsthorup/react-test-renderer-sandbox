@@ -11,7 +11,7 @@ export default function Count({ color }) {
   }, [color]);
   return (
     <button onClick={onClick}>
-      <span style={{ color }}>count is {count}</span>
+      <span style={{ color }}>{`count is ${count}`}</span>
     </button>
   );
 }

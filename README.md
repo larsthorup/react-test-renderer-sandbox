@@ -1,6 +1,6 @@
 # react-test-renderer-sandbox
 
-Demonstrates that DOM-based tests are ~1000 times slower than React Element-based tests
+Demonstrates that DOM-based tests are 100-1000 times slower than React Element-based tests
 
 ```bash
 npm install
@@ -19,3 +19,4 @@ npm run dev
 - [x] useEffect
 - [x] compare speed to RTL: <0.2ms (300ms in Jest/jsdom, 40ms in Mocha/Firefox)
 - [x] async / timers, mock time, wait (fetch)
+- [x] find by text

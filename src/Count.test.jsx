@@ -17,8 +17,7 @@ describe(Count.name, () => {
             }
           }
         >
-          count is 
-          0
+          count is 0
         </span>
       </button>
     `);
@@ -31,7 +30,7 @@ describe(Count.name, () => {
     const [span] = button.children;
     expect(span.type).toBe("span");
     expect(span.props).toHaveProperty("style", { color: "black" });
-    expect(span.children).toEqual(["count is ", "0"]);
+    expect(span.children).toEqual(["count is 0"]);
   });
 
   it("should let user click to increment count", () => {
@@ -47,6 +46,6 @@ describe(Count.name, () => {
     button.props.onClick();
 
     // then: component re-renders with incremented count
-    expect(button.children[0].children).toEqual(["count is ", "1"]);
+    expect(button.children[0].children).toEqual(["count is 1"]);
   });
 });

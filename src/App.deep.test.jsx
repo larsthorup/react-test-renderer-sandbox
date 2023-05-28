@@ -5,9 +5,8 @@ import Count from "./Count.jsx";
 
 describe(App.name, () => {
   it("should deep render", () => {
-    const testRenderer = TestRenderer.create(<App />);
-    const html = testRenderer.toJSON();
-    expect(html).toMatchInlineSnapshot(`
+    const { toJSON, root } = TestRenderer.create(<App />);
+    expect(toJSON()).toMatchInlineSnapshot(`
       [
         <h1>
           React Test Renderer sandbox
@@ -32,13 +31,24 @@ describe(App.name, () => {
                 }
               }
             >
-              count is 
-              0
+              count is 0
             </span>
           </button>
         </div>,
       ]
     `);
+
+    // get by component type
+    expect(root.findByType(Count).props.color).toBe("black");
+
+    // get by props
+    expect(root.findByProps({ color: "black" }).type).toBe(Count);
+
+    // get by text
+    root.find((el) => el.children.includes("count is 0"));
+
+    // get by predicate
+    root.find((el) => el.type === "span" && el.props.style.color === "black" && el.children.includes("count is 0"));
   });
 
   describe("with mocked timers", () => {
