@@ -3,9 +3,9 @@ import React from "react";
 // import ShallowRenderer from "react-shallow-renderer";
 import ShallowRenderer from "react-test-renderer/shallow";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
-import App from "./App.jsx";
-import Count from "./Count.jsx";
-import { byType } from "./shallowSearch.js";
+import App from "../App.jsx";
+import Count from "../Count.jsx";
+import { byType } from "../shallowSearch.js";
 
 describe.skip(App.name, () => {
   it("should shallow render", () => {

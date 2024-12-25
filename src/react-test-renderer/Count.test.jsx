@@ -1,6 +1,6 @@
 import TestRenderer, { act } from "react-test-renderer";
 import { describe, expect, it } from "vitest";
-import Count from "./Count.jsx";
+import Count from "../Count.jsx";
 
 describe(Count.name, () => {
   it("should render", async () => {

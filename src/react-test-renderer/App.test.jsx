@@ -1,7 +1,7 @@
 import TestRenderer, { act } from "react-test-renderer";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
-import App from "./App.jsx";
-import Count from "./Count.jsx";
+import App from "../App.jsx";
+import Count from "../Count.jsx";
 
 describe(App.name, () => {
   it("should deep render", async () => {
