@@ -3,8 +3,12 @@ import { describe, expect, it } from "vitest";
 import Count from "./Count.jsx";
 
 describe(Count.name, () => {
-  it("should render", () => {
-    const { toJSON, root } = TestRenderer.create(<Count color="black" />);
+  it("should render", async () => {
+    let renderer;
+    await act(async () => {
+      renderer = TestRenderer.create(<Count color="black" />);
+    });
+    const { root, toJSON }  = renderer;
     expect(toJSON()).toMatchInlineSnapshot(`
       <button
         onClick={[Function]}
@@ -30,9 +34,9 @@ describe(Count.name, () => {
     expect(span.props.children).toEqual("count is 0");
   });
 
-  it("should let user click to increment count", () => {
+  it("should let user click to increment count", async () => {
     let renderer;
-    act(() => {
+    await act(async () => {
       // note: use "act" to wait for effect to run before clicking
       renderer = TestRenderer.create(<Count color="black" />);
     });
@@ -40,7 +44,9 @@ describe(Count.name, () => {
     const button = root.findByType("button");
 
     // when: click button
-    button.props.onClick();
+    await act(async () => {
+      button.props.onClick();
+    });
 
     // then: component re-renders with incremented count
     expect(button.props.children.props.children).toEqual("count is 1");

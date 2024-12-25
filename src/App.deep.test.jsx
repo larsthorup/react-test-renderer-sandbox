@@ -4,8 +4,12 @@ import App from "./App.jsx";
 import Count from "./Count.jsx";
 
 describe(App.name, () => {
-  it("should deep render", () => {
-    const { toJSON, root } = TestRenderer.create(<App />);
+  it("should deep render", async () => {
+    let renderer;
+    await act(async () => {
+      renderer = TestRenderer.create(<App />);
+    });
+    const { toJSON, root } = renderer;
     expect(toJSON()).toMatchInlineSnapshot(`
       [
         <h1>
@@ -60,9 +64,9 @@ describe(App.name, () => {
       vi.useRealTimers();
     });
 
-    it("should wait for personalized color to load", () => {
+    it("should wait for personalized color to load", async () => {
       let renderer;
-      act(() => {
+      await act(async () => {
         renderer = TestRenderer.create(<App />);
         // when: waiting for useEffect to run
       });
@@ -70,19 +74,27 @@ describe(App.name, () => {
       expect(root.findByType(Count).props.color).toBe("black");
 
       // when: waiting for setTimeout to run
-      vi.advanceTimersToNextTimer();
+      await act(async () => {
+        vi.advanceTimersToNextTimer();
+      });
 
       expect(root.findByType(Count).props.color).toBe("green");
     });
   });
 
   for (let i = 0; i < 10000; ++i)
-    it("should let user change color", () => {
-      const { root } = TestRenderer.create(<App />);
+    it("should let user change color", async () => {
+      let renderer;
+      await act(async () => {
+        renderer = TestRenderer.create(<App />);
+      });
+      const { root } = renderer;
       expect(root.findByType(Count).props.color).toBe("black");
 
       // when: change color
-      root.findByType("input").props.onChange({ target: { value: "red" } });
+      await act(async () => {
+        root.findByType("input").props.onChange({ target: { value: "red" } });
+      });
 
       // then: component re-renders with new color
       expect(root.findByType(Count).props.color).toBe("red");
