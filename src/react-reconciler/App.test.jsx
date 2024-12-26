@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import App from "../App.jsx";
-import { render } from "./renderer.js";
+import { find, findByProps, findByType, render } from "./renderer.js";
 
 describe(App.name, () => {
   it("should render deeply", async () => {
@@ -64,6 +64,23 @@ describe(App.name, () => {
         },
       ],
     });
+
+    // get by type
+    expect(findByType(root, "span").props.style.color).toBe("black");
+
+    // get by props
+    expect(findByProps(root, { style: { color: "black" }}).type).toBe("span");
+
+    // get by text
+    findByProps(root, { text: "count is 0" });
+
+    // get by predicate
+    find(root, 
+      (el) =>
+        el.type === "span" &&
+        el.props.style.color === "black" &&
+        el.children.find(({text}) => text === "count is 0")
+    );
   });
 
   for (let i = 0; i < 10000; ++i)

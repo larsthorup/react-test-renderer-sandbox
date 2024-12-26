@@ -121,3 +121,37 @@ export async function render(element) {
   // console.log(JSON.stringify(root, null, 2));
   return { root };
 }
+
+export function find(node, predicate) {
+  if (predicate(node)) {
+    return node;
+  }
+  if (node.children) {
+    for (let child of node.children) {
+      let found = find(child, predicate);
+      if (found) {
+        return found;
+      }
+    }
+  }
+}
+
+export function findByType(node, type) {
+  return find(node, (el) => el.type === type);
+}
+
+export function findByProps(node, props) {
+  return find(node, (el) => {
+    if (el.props) {
+      for (let key in props) {
+        if (typeof el.props[key] === "object" && typeof props[key] === "object") {
+          return Object.entries(props[key]).every(([subKey, subValue]) => el.props[key][subKey] === subValue);
+        } else
+        if (el.props[key] !== props[key]) {
+          return false;
+        }
+      }
+      return true;
+    }
+  });
+}

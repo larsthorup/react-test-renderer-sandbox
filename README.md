@@ -31,8 +31,7 @@ npm run dev
 - [x] compare speed: 3000 tests/second Count.test.jsx
 - [x] click
 - [x] nested components
-- [ ] deep find helpers
+- [x] deep find helpers
 - [ ] useEffect
 - [ ] compare speed
 - [ ] async / timers, mock time, wait (fetch)
-- [ ] find by text
