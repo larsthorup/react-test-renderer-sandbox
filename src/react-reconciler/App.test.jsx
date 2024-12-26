@@ -1,11 +1,11 @@
 import { describe, expect, it } from "vitest";
 import App from "../App.jsx";
-import { find, findByProps, findByType, render } from "./renderer.js";
+import { Renderer } from "./renderer.js";
 
 describe(App.name, () => {
   it("should render deeply", async () => {
-    const { root } = await render(<App color="black" />);
-    expect(root).toEqual({
+    const renderer = await Renderer.create(<App color="black" />);
+    expect(renderer.root).toEqual({
       children: [
         {
           type: "h1",
@@ -66,21 +66,21 @@ describe(App.name, () => {
     });
 
     // get by type
-    expect(findByType(root, "span").props.style.color).toBe("black");
+    expect(renderer.findByType("span").props.style.color).toBe("black");
 
     // get by props
-    expect(findByProps(root, { style: { color: "black" }}).type).toBe("span");
+    expect(renderer.findByProps({ style: { color: "black" }}).type).toBe("span");
 
     // get by text
-    findByProps(root, { text: "count is 0" });
+    expect(renderer.findByText("count is 0")).toBeDefined();
 
     // get by predicate
-    find(root, 
+    expect(renderer.find( 
       (el) =>
         el.type === "span" &&
         el.props.style.color === "black" &&
         el.children.find(({text}) => text === "count is 0")
-    );
+    )).toBeDefined();
   });
 
   for (let i = 0; i < 10000; ++i)

@@ -109,20 +109,41 @@ let reconciler = ReactReconciler({
   },
 });
 
-export async function render(element) {
-  let root = { children: [] };
-  let container = reconciler.createContainer(root, false, false);
-  container.onUncaughtError = (error) => {
-    console.error(error);
-  };
-  await act(async () => {
-    reconciler.updateContainer(element, container, null, null);
-  });
-  // console.log(JSON.stringify(root, null, 2));
-  return { root };
+export class Renderer {
+  constructor() {
+    this.root = { children: [] };
+  }
+
+  static async create(element) {
+    let renderer = new Renderer();
+    const container = reconciler.createContainer(renderer.root, false, false);
+    container.onUncaughtError = (error) => {
+      console.error(error);
+    };
+    await act(async () => {
+      reconciler.updateContainer(element, container, null, null);
+    });
+    return renderer;
+  }
+
+  find(predicate) {
+    return find(this.root, predicate);
+  }
+
+  findByType(type) {
+    return findByType(this.root, type);
+  }
+
+  findByProps(props) {
+    return findByProps(this.root, props);
+  }
+
+  findByText(text) {
+    return findByText(this.root, text);
+  }
 }
 
-export function find(node, predicate) {
+function find(node, predicate) {
   if (predicate(node)) {
     return node;
   }
@@ -136,11 +157,15 @@ export function find(node, predicate) {
   }
 }
 
-export function findByType(node, type) {
+function findByType(node, type) {
   return find(node, (el) => el.type === type);
 }
 
-export function findByProps(node, props) {
+function findByText(node, text) {
+  return find(node, (el) => el.text === text);
+}
+
+function findByProps(node, props) {
   return find(node, (el) => {
     if (el.props) {
       for (let key in props) {

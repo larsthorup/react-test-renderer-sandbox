@@ -1,12 +1,12 @@
 import { describe, expect, it } from "vitest";
 import Count from "../Count.jsx";
-import { render } from "./renderer.js";
+import { Renderer } from "./renderer.js";
 import { act } from "react";
 
 describe(Count.name, () => {
   // for (let i = 0; i < 10000; ++i)
     it("should render", async () => {
-      const { root } = await render(<Count color="black" />);
+      const { root } = await Renderer.create(<Count color="black" />);
       const [button] = root.children;
       expect(button.type).toBe("button");
       expect(button.props).toHaveProperty("onClick");
@@ -18,7 +18,7 @@ describe(Count.name, () => {
     });
 
   it("should let user click to increment count", async () => {
-    const { root } = await render(<Count color="black" />);
+    const { root } = await Renderer.create(<Count color="black" />);
     const [button] = root.children;
 
     // when: click button
