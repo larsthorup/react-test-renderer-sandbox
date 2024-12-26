@@ -9,7 +9,7 @@
     "lint": "eslint src --ext js,jsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
     "test": "npm run lint && npm run test:react-reconciler && npm run test:react-test-renderer && npm run test:testing-library",
-    "test:react-reconciler": "vitest --run --reporter basic src/react-reconciler/Count.test.jsx",
+    "test:react-reconciler": "vitest --run --reporter basic --silent src/react-reconciler/Count.test.jsx",
     "test:react-test-renderer": "vitest --run --reporter basic --silent src/react-test-renderer/App.test.jsx src/react-test-renderer/Count.test.jsx",
     "test:testing-library": "vitest --run --reporter basic --environment jsdom src/testing-library/App.test.jsx"
   },

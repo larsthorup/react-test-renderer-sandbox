@@ -8,6 +8,8 @@ npm test
 npm run dev
 ```
 
+## react-test-renderer
+
 - [x] render
 - [x] useState
 - [x] click
@@ -20,3 +22,19 @@ npm run dev
 - [x] compare speed to RTL: <0.2ms (300ms in Jest/jsdom, 40ms in Mocha/Firefox)
 - [x] async / timers, mock time, wait (fetch)
 - [x] find by text
+
+## react-reconciler
+
+- [x] custom renderer
+- [x] root assertions
+- [x] compare speed: 3000 tests/second Count.test.jsx
+- [ ] click
+- [ ] nested components
+- [ ] shallow rendering
+- [ ] props
+- [ ] deep find helpers
+- [ ] shallow find helpers
+- [ ] useEffect
+- [ ] compare speed
+- [ ] async / timers, mock time, wait (fetch)
+- [ ] find by text
