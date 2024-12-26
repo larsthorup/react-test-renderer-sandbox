@@ -17,7 +17,7 @@ let reconciler = ReactReconciler({
     // hostContext,
     // internalInstanceHandle
   ) {
-    console.log("createInstance", { type, props });
+    // console.log("createInstance", { type, props });
     const { children, ...propsCleaned } = props;
     return {
       type,
@@ -31,43 +31,43 @@ let reconciler = ReactReconciler({
     // hostContext,
     // internalInstanceHandle
   ) {
-    console.log("createTextInstance", { text });
+    // console.log("createTextInstance", { text });
     return { text };
   },
   appendChildToContainer(container, child) {
-    console.log("appendChildToContainer", { container, child });
+    // console.log("appendChildToContainer", { container, child });
     container.children.push(child);
   },
   appendChild(parent, child) {
-    console.log("appendChild", { parent, child });
+    // console.log("appendChild", { parent, child });
     parent.children.push(child);
   },
   appendInitialChild(parent, child) {
-    console.log("appendInitialChild", { parent, child });
+    // console.log("appendInitialChild", { parent, child });
     parent.children.push(child);
   },
   prepareUpdate(
-    instance,
-    type,
-    oldProps,
-    newProps,
+    // instance,
+    // type,
+    // oldProps,
+    // newProps,
     // rootContainerInstance,
     // currentHostContext
   ) {
-    console.log("TODO: prepareUpdate", { type, oldProps, newProps });
+    // console.log("TODO: prepareUpdate", { type, oldProps, newProps });
   },
   commitUpdate(
-    instance,
-    updatePayload,
-    type,
-    oldProps,
-    newProps,
+    // instance,
+    // updatePayload,
+    // type,
+    // oldProps,
+    // newProps,
     // finishedWork
   ) {
-    console.log("TODO: commitUpdate", { type, oldProps, newProps });
+    // console.log("TODO: commitUpdate", { type, oldProps, newProps });
   },
   commitTextUpdate(textInstance, oldText, newText) {
-    console.log("commitTextUpdate:", { textInstance, oldText, newText });
+    // console.log("commitTextUpdate:", { textInstance, oldText, newText });
     textInstance.text = newText;
   },
   finalizeInitialChildren() {
@@ -118,6 +118,6 @@ export async function render(element) {
   await act(async () => {
     reconciler.updateContainer(element, container, null, null);
   });
-  console.log(JSON.stringify(root, null, 2));
+  // console.log(JSON.stringify(root, null, 2));
   return { root };
 }

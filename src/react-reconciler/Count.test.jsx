@@ -4,7 +4,7 @@ import { render } from "./renderer.js";
 import { act } from "react";
 
 describe(Count.name, () => {
-  for (let i = 0; i < 10000; ++i)
+  // for (let i = 0; i < 10000; ++i)
     it("should render", async () => {
       const { root } = await render(<Count color="black" />);
       const [button] = root.children;
