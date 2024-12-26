@@ -26,14 +26,12 @@ npm run dev
 ## react-reconciler
 
 - [x] custom renderer
+- [x] props
 - [x] root assertions
 - [x] compare speed: 3000 tests/second Count.test.jsx
 - [x] click
-- [ ] nested components
-- [ ] shallow rendering
-- [ ] props
+- [x] nested components
 - [ ] deep find helpers
-- [ ] shallow find helpers
 - [ ] useEffect
 - [ ] compare speed
 - [ ] async / timers, mock time, wait (fetch)
