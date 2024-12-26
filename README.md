@@ -28,7 +28,8 @@ npm run dev
 - [x] custom renderer
 - [x] root assertions
 - [x] compare speed: 3000 tests/second Count.test.jsx
-- [ ] click
+- [x] click
+- [ ] fix: The current testing environment is not configured to support act(...)
 - [ ] nested components
 - [ ] shallow rendering
 - [ ] props

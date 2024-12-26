@@ -32,7 +32,7 @@ let reconciler = ReactReconciler({
     // internalInstanceHandle
   ) {
     console.log("createTextInstance", { text });
-    return text;
+    return { text };
   },
   appendChildToContainer(container, child) {
     console.log("appendChildToContainer", { container, child });

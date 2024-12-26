@@ -1,9 +1,7 @@
 import { describe, expect, it } from "vitest";
 import Count from "../Count.jsx";
 import { render } from "./renderer.js";
-
-// TOOD: get rid of The current testing environment is not configured to support act(...)
-// TODO: implement findByType, findByProps, findByText
+import { act } from "react";
 
 describe(Count.name, () => {
   for (let i = 0; i < 10000; ++i)
@@ -16,8 +14,21 @@ describe(Count.name, () => {
       expect(span.type).toBe("span");
       expect(span.props).toHaveProperty("style", { color: "black" });
       const [text] = span.children;
-      expect(text).toEqual("count is 0");
+      expect(text).toHaveProperty("text", "count is 0");
     });
 
-  it.todo("should let user click to increment count");
+  it("should let user click to increment count", async () => {
+    const { root } = await render(<Count color="black" />);
+    const [button] = root.children;
+
+    // when: click button
+    await act(async () => {
+      button.props.onClick();
+    });
+
+    // then: component re-renders with incremented count
+    const [span] = button.children;
+    const [text] = span.children;
+    expect(text).toHaveProperty("text", "count is 1");
+  });
 });
