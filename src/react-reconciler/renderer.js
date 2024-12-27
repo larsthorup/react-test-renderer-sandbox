@@ -46,25 +46,26 @@ let reconciler = ReactReconciler({
     // console.log("appendInitialChild", { parent, child });
     parent.children.push(child);
   },
-  prepareUpdate(
-    // instance,
-    // type,
-    // oldProps,
-    // newProps,
-    // rootContainerInstance,
-    // currentHostContext
-  ) {
-    // console.log("TODO: prepareUpdate", { type, oldProps, newProps });
-  },
+  // prepareUpdate(
+  //   instance,
+  //   type,
+  //   oldProps,
+  //   newProps,
+  //   // rootContainerInstance,
+  //   // currentHostContext
+  // ) {
+  //   console.log("TODO: prepareUpdate", { type, oldProps, newProps });
+  // },
   commitUpdate(
-    // instance,
+    instance,
     // updatePayload,
-    // type,
-    // oldProps,
-    // newProps,
+    type,
+    oldProps,
+    newProps,
     // finishedWork
   ) {
-    // console.log("TODO: commitUpdate", { type, oldProps, newProps });
+    // console.log("TODO: commitUpdate", { type, oldProps, newProps, instance });
+    instance.props = newProps;
   },
   commitTextUpdate(textInstance, oldText, newText) {
     // console.log("commitTextUpdate:", { textInstance, oldText, newText });

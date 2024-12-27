@@ -32,6 +32,6 @@ npm run dev
 - [x] click
 - [x] nested components
 - [x] deep find helpers
-- [ ] useEffect
-- [ ] compare speed
-- [ ] async / timers, mock time, wait (fetch)
+- [x] useEffect
+- [x] compare speed: 2500 tests/second (RTL: 2000, TL/R: 8)
+- [x] async / timers, mock time, wait (fetch)

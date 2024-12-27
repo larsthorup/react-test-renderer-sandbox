@@ -49,10 +49,15 @@ describe(App.name, () => {
     expect(root.findByProps({ color: "black" }).type).toBe(Count);
 
     // get by text
-    root.findByProps({children: "count is 0"});
+    root.findByProps({ children: "count is 0" });
 
     // get by predicate
-    root.find((el) => el.type === "span" && el.props.style.color === "black" && el.children.includes("count is 0"));
+    root.find(
+      (el) =>
+        el.type === "span" &&
+        el.props.style.color === "black" &&
+        el.children.includes("count is 0")
+    );
   });
 
   describe("with mocked timers", () => {
@@ -64,39 +69,30 @@ describe(App.name, () => {
       vi.useRealTimers();
     });
 
-    it("should wait for personalized color to load", async () => {
-      let renderer;
-      await act(async () => {
-        renderer = TestRenderer.create(<App />);
-        // when: waiting for useEffect to run
-      });
-      const { root } = renderer;
-      expect(root.findByType(Count).props.color).toBe("black");
+    for (let i = 0; i < 10000; ++i)
+      it("should wait for personalized color to load", async () => {
+        let renderer;
+        await act(async () => {
+          renderer = TestRenderer.create(<App />);
+          // when: waiting for useEffect to run
+        });
+        const { root } = renderer;
+        expect(root.findByType(Count).props.color).toBe("black");
 
-      // when: waiting for setTimeout to run
-      await act(async () => {
-        vi.advanceTimersToNextTimer();
-      });
+        // when: waiting for setTimeout to load personal color
+        await act(async () => {
+          vi.advanceTimersToNextTimer();
+        });
 
-      expect(root.findByType(Count).props.color).toBe("green");
-    });
+        expect(root.findByType(Count).props.color).toBe("green");
+
+        // when: user changes color
+        await act(async () => {
+          root.findByType("input").props.onChange({ target: { value: "red" } });
+        });
+
+        // then: component re-renders with new color
+        expect(root.findByType(Count).props.color).toBe("red");
+      });
   });
-
-  for (let i = 0; i < 10000; ++i)
-    it("should let user change color", async () => {
-      let renderer;
-      await act(async () => {
-        renderer = TestRenderer.create(<App />);
-      });
-      const { root } = renderer;
-      expect(root.findByType(Count).props.color).toBe("black");
-
-      // when: change color
-      await act(async () => {
-        root.findByType("input").props.onChange({ target: { value: "red" } });
-      });
-
-      // then: component re-renders with new color
-      expect(root.findByType(Count).props.color).toBe("red");
-    });
 });
