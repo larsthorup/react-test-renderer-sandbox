@@ -33,5 +33,5 @@ npm run dev
 - [x] nested components
 - [x] deep find helpers
 - [x] useEffect
-- [x] compare speed: 2500 tests/second (RTL: 2000, TL/R: 8)
 - [x] async / timers, mock time, wait (fetch)
+- [x] compare speed: 2500 tests/second (react-test-renderer: 2000, testing-library: 8) App.test.jsx
