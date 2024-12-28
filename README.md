@@ -8,6 +8,10 @@ npm test
 npm run dev
 ```
 
+View timings in [Github Actions](https://github.com/larsthorup/react-test-renderer-sandbox/actions/workflows/ci.yml):
+
+![Timing for react-test-rendere / react-reconciler vs React Testing Library](./react-test-renderer-sandbox@590ba9c.png)
+
 ## react-test-renderer
 
 - [x] render
