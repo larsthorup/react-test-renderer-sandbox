@@ -38,6 +38,9 @@ let reconciler = ReactReconciler({
     // console.log("appendChildToContainer", { container, child });
     container.children.push(child);
   },
+  removeChildFromContainer(container, child) {
+    console.log("TODO: removeChildFromContainer", { container, child });
+  },
   appendChild(parent, child) {
     // console.log("appendChild", { parent, child });
     parent.children.push(child);
@@ -45,6 +48,18 @@ let reconciler = ReactReconciler({
   appendInitialChild(parent, child) {
     // console.log("appendInitialChild", { parent, child });
     parent.children.push(child);
+  },
+  removeChild(parent, child) {
+    // console.log("removeChild", { parent, child });
+    parent.children.splice(parent.children.indexOf(child), 1);
+  },
+  insertBefore(parent, child, beforeChild) {
+    // console.log("insertBefore", { parent, child, beforeChild });
+    parent.children.splice(parent.children.indexOf(beforeChild), 0, child);
+  },
+  hideInstance() {
+  },
+  unhideInstance() {
   },
   // prepareUpdate(
   //   instance,
@@ -142,6 +157,22 @@ export class Renderer {
   findByText(text) {
     return findByText(this.root, text);
   }
+
+  findAll(predicate) {
+    return findAll(this.root, predicate);
+  }
+
+  findAllByType(type) {
+    return findAllByType(this.root, type);
+  }
+
+  findAllByProps(props) {
+    return findAllByProps(this.root, props);
+  }
+
+  findAllByText(text) {
+    return findAllByText(this.root, text);
+  }
 }
 
 function find(node, predicate) {
@@ -158,16 +189,53 @@ function find(node, predicate) {
   }
 }
 
+function findAll(node, predicate) {
+  let found = [];
+  if (predicate(node)) {
+    found.push(node);
+  }
+  if (node.children) {
+    for (let child of node.children) {
+      found.push(...findAll(child, predicate));
+    }
+  }
+  return found;
+}
+
 function findByType(node, type) {
   return find(node, (el) => el.type === type);
 }
 
 function findByText(node, text) {
-  return find(node, (el) => el.text === text);
+  return find(node, (el) => el.children?.[0]?.text === text);
 }
 
 function findByProps(node, props) {
   return find(node, (el) => {
+    if (el.props) {
+      for (let key in props) {
+        if (typeof el.props[key] === "object" && typeof props[key] === "object") {
+          return Object.entries(props[key]).every(([subKey, subValue]) => el.props[key][subKey] === subValue);
+        } else
+        if (el.props[key] !== props[key]) {
+          return false;
+        }
+      }
+      return true;
+    }
+  });
+}
+
+function findAllByType(node, type) {
+  return findAll(node, (el) => el.type === type);
+}
+
+function findAllByText(node, text) {
+  return findAll(node, (el) => el.children?.[0]?.text === text);
+}
+
+function findAllByProps(node, props) {
+  return findAll(node, (el) => {
     if (el.props) {
       for (let key in props) {
         if (typeof el.props[key] === "object" && typeof props[key] === "object") {

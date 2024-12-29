@@ -6,6 +6,8 @@ import { act } from "react";
 describe(App.name, () => {
   it("should render deeply", async () => {
     const renderer = await Renderer.create(<App />);
+
+    // verify raw object structure
     expect(renderer.root).toEqual({
       children: [
         {
@@ -66,6 +68,26 @@ describe(App.name, () => {
       ],
     });
 
+    // verify against expected JSX
+    expect(renderer.root).toEqual(
+      (
+        await Renderer.create(
+          <>
+            <h1>React Test Renderer sandbox</h1>
+            <div className="card">
+              <label>
+                Color:
+                <input type="text" onChange={expect.any(Function)}></input>
+              </label>
+              <button onClick={expect.any(Function)}>
+                <span style={{ color: "black" }}>{`count is 0`}</span>
+              </button>
+            </div>
+          </>
+        )
+      ).root
+    );
+
     // get by type
     expect(renderer.findByType("span").props.style.color).toBe("black");
 
@@ -75,7 +97,7 @@ describe(App.name, () => {
     );
 
     // get by text
-    expect(renderer.findByText("count is 0")).toBeDefined();
+    expect(renderer.findByText("count is 0").type).toBe("span");
 
     // get by predicate
     expect(
